@@ -10,6 +10,11 @@
 [interfaces.md](interfaces.md)가 유일한 기준이며, 실제 구현 상태와 시험 결과는
 각 개발 단위 문서에서 구분해 기록한다.
 
+
+## 발표 자료
+
+[발표 자료 PDF](patrol_presentation.pdf)
+
 ## 문서 지도
 
 | 문서 | 역할 |
