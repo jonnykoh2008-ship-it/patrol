@@ -6,7 +6,7 @@
 - 요청 단위: AMR
 - 대상 단위 및 로봇: 관제·System monitor·AMR / robot1·robot6
 - 관련 TBD ID: TBD-IF-003, TBD-IF-004
-- 기준 문서·절: [interfaces.md 3.1·5·9절](../interfaces.md), [integration.md IT-11·IT-12](../integration.md), [기존 PatrolReport ACK 검토 요청서](CR-AMR_09-08_10-42_PatrolReport_ACK와_큐_삭제_조건_검토.md)
+- 기준 문서·절: [interfaces.md 3.1·5·9절](../interfaces.md), [integration.md IT-11·IT-12](../integration.md), 기존 PatrolReport ACK 검토 요청서
 - 결정 일자·근거: E-stop 활성 즉시 정지와 PatrolReport 영속 outbox·동일 report ID 재전송은 기존 기준이다. 2026-09-09 사용자는 5절의 ACK 계약을 AMR 요청안으로 확정했다. E-stop reset 부분은 영향 팀 합의 전 **제안**이다.
 - 코드 변경 승인 근거·범위: 이 요청은 인터페이스 명세서 작성만 승인됐다. 공용 메시지·관제·System monitor·AMR 실행 코드 변경은 미승인이다.
 
@@ -160,7 +160,7 @@ flowchart TD
     A[active=true 또는 latched=true] --> STOP[최종 cmd_vel 0]
     STOP --> RELEASE[물리 버튼·원인 해제]
     RELEASE --> STATE[Safety Arbiter: active=false, latched=true]
-    STATE --> RESET[/robotN/reset_estop 요청]
+    STATE --> RESET["/robotN/reset_estop 요청"]
     RESET --> CHECK{robot·권한·session·sequence<br/>최신이며 active=false인가?}
     CHECK -->|아니오| DENY[거절·정지 유지]
     CHECK -->|예| CLEAR[AMR local latch 해제]
@@ -284,7 +284,7 @@ ACK 기능을 한 번 활성화한 뒤에는 subscriber 연결 여부나 DDS pub
 - E-stop reset 성공 후 token이나 mission이 없으면 정지 상태를 유지한다.
 - ACK 유실 시 같은 report ID가 반복될 수 있으므로 System monitor 저장은 멱등이어야 한다.
 - System monitor DB 장애 시 `REJECTED`를 보내며 AMR은 원본 report를 보존한다.
-- outbox 손상 시 파일을 자동 초기화해 결과를 버리지 않고 오류 상태로 전환한다.
+- outbox 손상 시 파일을 자동 초기화하지 않고(결과를 버리지 않고) 오류 상태로 전환한다.
 - robot1 ACK로 robot6 pending report를 제거할 수 없다.
 
 ## 9. 단위별 반영 상태
